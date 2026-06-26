@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  variables:
+    DOCKER_REGISTRY_URL: "Docker.io"
+  parameter-store:
+    DOCKER_REGISTRY_USERNAME: "/docker/registry/username"
+    DOCKER_REGISTRY_PASSWORD: "/docker/registry/password"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+
+  pre_build:
+    commands:
+      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin
+      - echo "Login successful"
+
+  build:
+    commands:
+      - cd apps/django-app
+      - docker build -t $DOCKER_REGISTRY_USERNAME/python_django:latest .
+      - docker push $DOCKER_REGISTRY_USERNAME/python_django:latest
+
+  post_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR
+      - printf '[{"name":"python-app","imageUri":"%s/python_django:latest"}]' "$DOCKER_REGISTRY_USERNAME" > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
