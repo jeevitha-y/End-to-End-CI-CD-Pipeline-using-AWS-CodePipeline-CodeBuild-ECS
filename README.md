@@ -178,7 +178,3 @@ For this project, the CodePipeline service role was granted:
 This allows CodePipeline to deploy the latest Docker image to Amazon ECS during the Deploy stage.
 
 > **Note:** In production environments, it is recommended to grant only the minimum required ECS and IAM permissions instead of full access.
-
-```
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9f34887d-366a-4168-9560-f0883f63282a" />
-```
