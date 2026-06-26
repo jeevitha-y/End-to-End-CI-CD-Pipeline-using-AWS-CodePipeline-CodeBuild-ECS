@@ -72,7 +72,7 @@ What happens:
 
 ---
 ## Step 5: buildspec.yml
-
+```
 version: 0.2
 
 env:
@@ -105,7 +105,7 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-
+```
 ---
 ## Step 6: Create ECS Resources
 
@@ -143,7 +143,13 @@ artifacts:
 - Select the Task Definition created above.
 - Enter a Service Name.
 - Choose the desired number of tasks.
-- Configure networking (VPC, Subnets, Security Group).
+-   Add an inbound rule to the Security Group:
+    - **Type:** Custom TCP
+    - **Port:** 8000
+    - **Source:** Anywhere (0.0.0.0/0) *(for testing)*
+
+> **Note:** For production environments, restrict the source to only trusted IP addresses or an Application Load Balancer (ALB).
+
 - Create the service.
 
 ---
