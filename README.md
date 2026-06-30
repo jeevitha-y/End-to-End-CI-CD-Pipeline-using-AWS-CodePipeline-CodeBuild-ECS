@@ -12,7 +12,7 @@
 ## Step 1: Clone Repository
 
 git clone https://github.com/jeevitha-y/aws-dockerized-django-web-application.git
-cd aws-dockerized-django-web-application
+ cd aws-dockerized-django-web-application
 
 ---
 ## Step 2: Store Docker Credentials in Parameter Store
